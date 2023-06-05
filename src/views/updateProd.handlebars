@@ -1,0 +1,46 @@
+<script>
+    function updateProduct (id) {
+        fetch(`http://localhost:8080/products/${id}`, {
+            method: 'put',
+            body: JSON.stringify({
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                price: document.getElementById('price').value,
+                thumbnail: document.getElementById('thumbnail').value,
+                code: document.getElementById('code').value,
+                stock: document.getElementById('stock').value,
+                category: document.getElementById('category').value
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors'
+
+        })
+        .then(response => response.json())
+        .then(data =>  {
+            console.log('Producto actualizado', data)
+
+        }).catch(error => {
+            console.error('Error al actualizar el producto')
+        })
+    }
+
+</script>
+
+
+<div class="container-update">
+    <h1>Actualizar Productos</h1>
+    <div >
+        Title: <input type="text" name="title" id="title" value="{{product.title}}">
+        Description: <input type="text" name="description" id="description" value="{{product.description}}">
+        Price: <input type="number" name="price"  id="price" value="{{product.price}}">
+        Thumbnail <input type="text" name="thumbnail" id="thumbnail" value="{{product.thumbnail}}">
+        code: <input type="text" name="code" id="code" value="{{product.code}}">
+        stock: <input type="number" name="stock"  id="stock" value="{{product.stock}}">
+        Category <input type="text" name="category" id="category" value="{{product.category}}">
+
+
+    <button onclick="updateProduct('{{product._id}}')">Actualizar</button>
+    </div>
+</div>
